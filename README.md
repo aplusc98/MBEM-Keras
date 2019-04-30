@@ -3,7 +3,7 @@ This repository gives a Keras implementation of the MBEM algorithm proposed in t
 
 
 
-USAGE INSTRUCTIONs:
+USAGE INSTRUCTIONS:
 
 Update the path in the data_loader.py
 
