@@ -13,8 +13,9 @@ from keras.datasets import cifar10
 import numpy as np
 import os
 
-def train(x_train, y_train, x_test, y_test):
+def train(x_train, y_train, y_dummy, var, x_test, y_test):
     # Training parameters
+
     batch_size = 32  # orig paper trained all networks with batch_size=128
     epochs = 100
     data_augmentation = True
@@ -58,8 +59,6 @@ def train(x_train, y_train, x_test, y_test):
     # Convert class vectors to binary class matrices.
     #y_train = keras.utils.to_categorical(y_train, num_classes)
     y_test = keras.utils.to_categorical(y_test, num_classes)
-
-
     def lr_schedule(epoch):
         """Learning Rate Schedule
 
@@ -305,12 +304,8 @@ def train(x_train, y_train, x_test, y_test):
     else:
         model = resnet_v1(input_shape=input_shape, depth=depth)
 
-    def customLoss(y_true,y_pred):
-        ce = K.sum(K.sum(K.dot(y_true,y_pred), axis=1))
-        de = keras.losses.categorical_crossentropy(y_true, y_pred) 
-        return ce + de    
         
-    model.compile(loss= customLoss(y_true,y_pred),
+    model.compile(loss= "categorical_crossentropy",
                   optimizer=Adam(lr=lr_schedule(0)),
                   metrics=['accuracy'])
     model.summary()
@@ -408,4 +403,4 @@ def train(x_train, y_train, x_test, y_test):
     labels = model.predict(x_train, batch_size=500)
     print('Test loss:', scores[0])
     print('Test accuracy:', scores[1])
-    return scores, labels
+    return scores[0],scores[1], labels
