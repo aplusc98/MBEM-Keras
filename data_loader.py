@@ -1,9 +1,13 @@
+"""
+Author : ASISH CHAKRAPANI
+ISI,CAL 
+"""
 import pickle
 import numpy as np
 import os
 from keras import backend as K
 
-path = "/home/cvpr/Asish/AGE_EST/MBEM_keras/cifar-10-python/"
+path = "./MBEM_keras/cifar-10-python/"
 def load_batch(fpath, label_key='labels'):
     """Internal utility for parsing CIFAR data.
     # Arguments
@@ -14,7 +18,7 @@ def load_batch(fpath, label_key='labels'):
         A tuple `(data, labels)`.
     """
     with open(fpath, 'rb') as f:
-        d = pickle.load(f)
+        d = pickle.load(f, encoding ='bytes')
         d_decoded = {}
         for k, v in d.items():
                     d_decoded[k.decode('utf8')] = v
