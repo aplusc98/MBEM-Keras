@@ -13,7 +13,7 @@ from keras.datasets import cifar10
 import numpy as np
 import os
 
-def train(x_train, y_train, y_dummy, var, x_test, y_test):
+def train(x_train, y_train, x_test, y_test):
     # Training parameters
 
     batch_size = 32  # orig paper trained all networks with batch_size=128
